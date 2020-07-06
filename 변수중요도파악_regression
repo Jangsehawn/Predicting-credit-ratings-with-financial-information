@@ -1,0 +1,18 @@
+.libPaths()
+.libPaths("E:/R")
+getwd()
+setwd("E:/hanim")
+
+sero=read.csv("sero2.csv")
+
+#CB, CP 삭제
+
+head(sero)
+sero=sero[-11]
+head(sero)
+sero=sero[-11]
+head(sero)
+
+
+seroreg=lm(CR~.,data=sero)
+summary(seroreg)
