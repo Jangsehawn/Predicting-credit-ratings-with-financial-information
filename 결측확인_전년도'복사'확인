@@ -1,0 +1,144 @@
+#O 1. 0인지 추가확인(null 값은 없었으나 결측일 수 있음)
+#2000ACT가 0-> 785
+#ZeroList2000에 인덱스 넣어놈
+#2000,2001ACT가 0-> 694
+#....
+
+#ZeroMatrix-> 0이면 1로 원핫인코딩
+#열->년도
+#행->회사
+
+#O 2. 전년도 "복사" 인지 확인(20년 이하인 기업들)
+#2000,2001 ACT 같은것->699개
+
+#Samematrix-> 0이면 1로 원핫인코딩
+#열->년도
+#행->회사
+
+data=pd.read_csv('ALL.csv')
+data.head()
+
+
+zero_2000=0
+ZeroList2000=[]
+for i in range(len(data)):
+    if data['2000ACT'][i]==0:
+        zero_2000+=1
+        ZeroList2000.append(i)
+zero_2000# 2000ACT가 0인 것이 785개-> 결측으로 추측(회사의 역사가 짧음)
+
+zero_2001=0
+for i in range(len(data)):
+    if data['2000ACT'][i]==0:
+        if data['2001ACT'][i]==0:
+            zero_2001+=1
+zero_2001
+
+Zeromatrix=np.zeros((2191,18))
+
+len(Zeromatrix[0])
+
+for i in range(len(data)):
+    if data['2000ACT'][i]==0:
+        Zeromatrix[i,0]=1
+        if data['2001ACT'][i]==0:
+            Zeromatrix[i,1]=1
+            if data['2002ACT'][i]==0:
+                Zeromatrix[i,2]=1
+                if data['2003ACT'][i]==0:
+                    Zeromatrix[i,3]=1
+                    if data['2004ACT'][i]==0:
+                        Zeromatrix[i,4]=1
+                        if data['2005ACT'][i]==0:
+                            Zeromatrix[i,5]=1
+                            if data['2006ACT'][i]==0:
+                                Zeromatrix[i,6]=1
+                                if data['2007ACT'][i]==0:
+                                    Zeromatrix[i,7]=1
+                                    if data['2008ACT'][i]==0:
+                                        Zeromatrix[i,8]=1
+                                        if data['2009ACT'][i]==0:
+                                            Zeromatrix[i,9]=1
+                                            if data['2010ACT'][i]==0:
+                                                Zeromatrix[i,10]=1
+                                                if data['2011ACT'][i]==0:
+                                                    Zeromatrix[i,11]=1
+                                                    if data['2012ACT'][i]==0:
+                                                        Zeromatrix[i,12]=1
+                                                        if data['2013ACT'][i]==0:
+                                                            Zeromatrix[i,13]=1
+                                                            if data['2014ACT'][i]==0:
+                                                                Zeromatrix[i,14]=1
+                                                                if data['2015ACT'][i]==0:
+                                                                    Zeromatrix[i,15]=1
+                                                                    if data['2016ACT'][i]==0:
+                                                                        Zeromatrix[i,16]=1
+                                                                        if data['2017ACT'][i]==0:
+                                                                            Zeromatrix[i,17]=1
+                                  
+np.save('E:/hanim/Zeromatrix_save',Zeromatrix ) # Zeromatrix_save.npy
+Zeromatrix_save_load = np.load('E:/hanim/Zeromatrix_save.npy')
+Zeromatrix_save_load
+
+same=[]
+for i in range(len(data)):
+    if data['2000ACT'][i]==data['2001ACT'][i]:
+        ACT[i]=1
+        same.append(i)
+
+same
+
+
+same=0
+for i in range(len(ACT)):
+    same+=ACT[i]
+same
+
+
+Samematrix=np.zeros((2191,17))
+
+for i in range(len(data)):
+    if data['2000ACT'][i]==data['2001ACT'][i]:
+        Samematrix[i,0]=1
+        if data['2001ACT'][i]==data['2002ACT'][i]:
+            Samematrix[i,1]=1
+            if data['2002ACT'][i]==data['2003ACT'][i]:
+                Samematrix[i,2]=1
+                if data['2003ACT'][i]==data['2004ACT'][i]:
+                    Samematrix[i,3]=1
+                    if data['2004ACT'][i]==data['2005ACT'][i]:
+                        Samematrix[i,4]=1
+                        if data['2005ACT'][i]==data['2006ACT'][i]:
+                            Samematrix[i,5]=1
+                            if data['2006ACT'][i]==data['2007ACT'][i]:
+                                Samematrix[i,6]=1
+                                if data['2007ACT'][i]==data['2008ACT'][i]:
+                                    Samematrix[i,7]=1
+                                    if data['2008ACT'][i]==data['2009ACT'][i]:
+                                        Samematrix[i,8]=1
+                                        if data['2009ACT'][i]==data['2010ACT'][i]:
+                                            Samematrix[i,9]=1
+                                            if data['2010ACT'][i]==data['2011ACT'][i]:
+                                                Samematrix[i,10]=1
+                                                if data['2011ACT'][i]==data['2012ACT'][i]:
+                                                    Samematrix[i,11]=1
+                                                    if data['2012ACT'][i]==data['2013ACT'][i]:
+                                                        Samematrix[i,12]=1
+                                                        if data['2013ACT'][i]==data['2014ACT'][i]:
+                                                            Samematrix[i,13]=1
+                                                            if data['2014ACT'][i]==data['2015ACT'][i]:
+                                                                Samematrix[i,14]=1
+                                                                if data['2015ACT'][i]==data['2016ACT'][i]:
+                                                                    Samematrix[i,15]=1
+                                                                    if data['2016ACT'][i]==data['2017ACT'][i]:
+                                                                        Samematrix[i,16]=1
+
+
+np.save('E:/hanim/Samematrix_save',Samematrix ) # Samematrix_save.npy
+Samematrix_save_load = np.load('E:/hanim/Samematrix_save.npy')
+Samematrix_save_load
+
+Samematrix_save_load[77]
+
+
+
