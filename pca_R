@@ -1,0 +1,72 @@
+
+str(sero4)
+sum(is.null(sero4))
+
+pr.out=prcomp(sero4, scale=TRUE,)#prcomp()는 평균이 0이 되도록 centering, scale=TRUE시에 표준편차가 1이 되도록 scaling
+# Error in svd(x, nu = 0, nv = k) : infinite or missing values in 'x'
+# 년도가 원핫으로 임베딩 부분이 문제인 것 아닐까?
+sero5=sero4[,c(1:34)]#년도 제외
+str(sero5)
+head(sero5)
+pr.out2=prcomp(sero5, scale=TRUE,center=T)
+# Error in svd(x, nu = 0, nv = k) : infinite or missing values in 'x'
+# 같은결과 이므로 결측이 있는지 확인
+svd(sero5)
+sum(is.na(sero4))#결측확인
+length(sero4[,1])
+
+names(sero4)
+pr.out2$center#centering전의 평균
+pr.out2$scale#scaling전의 분산
+pr.out2$rotation#주성분별 가중치 벡터
+
+
+sum(is.na(sero4[,1]))# 1행 결측확인
+sum(is.na(sero4[,2]))
+sum(is.na(sero4[,3]))#2,3행 결측이 1과 같음
+
+count=0
+null_row=list()
+for(i in 1:length(sero4[,1])){
+  print(sum(is.na(sero4[,i])))#어디에 결측이 있는지 확인
+  count=count+1#열 개수 
+  if(sum(is.na(sero4[,i]))>0){
+    null_row[i]=1
+  }else{
+    null_row[i]=0
+  }
+}
+count
+#25*2191
+null_row#null이 있는 열이 1
+
+
+sero4[,1]
+
+sum(is.na(sero4[,1]))
+median(sero4[,1],na.rm=T)
+
+for( i in 1:length(sero4[,1])){
+  if( sero4[,1][i]=='null'){
+    sero4[,1][i]=median(sero4[,1],na.rm=T)
+  }
+}
+
+sum(is.na(sero4[,1]))
+
+
+sero5=na.omit(sero4)#na 다 제거ㅎ
+sero_pca=prcomp(sero5,center = T)
+
+
+
+sero_pca$center#centering전의 평균
+sero_pca$scale#scaling전의 분산
+sero_pca$rotation#
+  
+
+summary(sero_pca)
+biplot(sero_pca,scale=0)
+
+
+
